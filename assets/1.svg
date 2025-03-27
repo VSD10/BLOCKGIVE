@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <pattern id="abstractPattern" width="200" height="200" patternUnits="userSpaceOnUse">
+      <path d="M0,100 Q50,0 100,100 T200,100" fill="none" stroke="#e65c4f" stroke-width="12" />
+      <path d="M0,150 Q50,50 100,150 T200,150" fill="none" stroke="#2d4654" stroke-width="10" />
+      <path d="M50,0 Q100,100 150,0 T250,0" fill="none" stroke="#4b9b96" stroke-width="8" />
+      <path d="M-50,50 Q0,150 50,50 T150,50" fill="none" stroke="#e8c39e" stroke-width="14" />
+    </pattern>
+  </defs>
+  <rect width="100%" height="100%" fill="#2d4654" />
+  <rect width="100%" height="100%" fill="url(#abstractPattern)" opacity="0.8" />
+</svg>
