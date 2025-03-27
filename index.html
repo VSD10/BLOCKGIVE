@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlockGive</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Fredoka:wght@300..700&family=Manrope:wght@200..800&family=Quicksand:wght@300..700&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Cormorant Garamond", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+          "Open Sans", "Helvetica Neue", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 500;
+        font-style: normal;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.781),
+          rgba(200, 200, 200, 0.8)
+        );
+      }
+      header {
+        background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.781),
+          rgba(200, 200, 200, 0.8)
+        );
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        padding: 0 20px;
+      }
+      .logo {
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .gi{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25;
+      }
+      ul {
+        list-style: none;
+        display: flex;
+        gap: 20px;
+        padding: 0;
+      }
+      ul li {
+        display: inline;
+      }
+      ul li a {
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        font-size: 18px;
+      }
+      .buttons button {
+        margin-left: 10px;
+        padding: 12px 25px;
+        border: none;
+        cursor: pointer;
+        border-radius: 20px;
+        font-size: 16px;
+      }
+      .get-started {
+        background: black;
+        color: white;
+      }
+      .sign-in {
+        background: lightgray;
+      }
+      .connect-wallet {
+        background: linear-gradient(
+          45deg,
+          #bc0093cf,
+          #ff4b2b,
+          #0800ffb6,
+          #ffcc00
+        );
+        background-size: 300% 300%;
+        animation: gradientBG 6s ease infinite;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .connect-wallet:hover {
+        transform: scale(1.05);
+      }
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+      .hero {
+        background: url("./assets/1.svg") center/cover;
+        color: white;
+        padding: 100px 20px;
+      }
+      .about,
+      .stories,
+      footer {
+        padding: 50px 20px;
+      }
+      .story-grid {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+      }
+      .story {
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        width: 30%;
+        text-align: left;
+      }
+      .story img {
+        width: 100%;
+        border-radius: 10px;
+      }
+      .story h3 {
+        margin-top: 10px;
+      }
+      .story p {
+        color: #555;
+      }
+      .donate-button {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        cursor: pointer;
+        border-radius: 20px;
+        font-size: 18px;
+        transition: transform 0.2s ease-in-out;
+      }
+      .donate-button:hover {
+        transform: scale(1.1);
+      }
+      footer {
+        background: black;
+        color: white;
+        padding: 50px 20px;
+      }
+      /* Modal styles */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+    max-width: 500px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.sign-in {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .sign-in:hover {
+        background-color: #333;
+    }
+  
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo">BlockGive</div>
+        <div class="gi">
+        <ul>
+          <li><a href="ABOUT.html">About</a></li>
+          <li><a href="userdash.html">Dashboard</a></li>
+          <li><a href="history.html">Transaction History</a></li>
+          <li><a href="#">Resources</a></li>
+        </ul>
+    </div>
+        <div class="buttons">
+          <button class="get-started">Get Started</button>
+          <button class="sign-in" onclick="window.location.href='login.html'">Sign In</button>
+
+<style>
+    .sign-in {
+        background-color: black;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+    .sign-in:hover {
+        background-color: #333;
+    }
+</style>
+
+          <button class="connect-wallet" onclick="connectMetaMask()">
+            Connect Wallet
+          </button>
+          <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">&times;</span>
+                <p id="modal-message"></p>
+            </div>
+        </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Revolutionizing Charity with Blockchain</h1>
+        <p>Experience unparalleled transparency and trust in your donations.</p>
+        <button
+          class="donate-button"
+          onclick="window.location.href='donation.html'"
+        >
+          Donate Now
+        </button>
+      </div>
+    </section>
+
+    <section class="about">
+      <h2>Blockchain: The Future of Giving</h2>
+      <p>
+        BlockGive utilizes blockchain technology to provide an immutable,
+        transparent ledger of all transactions...
+      </p>
+    </section>
+
+    <section class="stories">
+      <h2>Real Stories, Real Impact</h2>
+      <div class="story-grid">
+        <div class="story">
+          <img src="./assets/health.jpg" alt="Healthcare" />
+          <h3>Transforming Healthcare</h3>
+          <p>
+            Thanks to BlockGive, we’ve been able to streamline our funding
+            process...
+          </p>
+        </div>
+        <div class="story">
+          <img src="./assets/education (1).jpg" alt="Education" />
+          <h3>Empowering Education</h3>
+          <p>
+            BlockGive’s transparent platform has allowed us to secure vital
+            resources...
+          </p>
+        </div>
+        <div class="story">
+          <img src="./assets/community.jpg" alt="Community" />
+          <h3>Building Stronger Communities</h3>
+          <p>We’re grateful for BlockGive’s commitment to transparency...</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <h2>Join the Giving Revolution</h2>
+      <p>Become part of a movement that’s reshaping philanthropy...</p>
+      <button
+        class="donate-button"
+        onclick="window.location.href='donation.html'"
+      >
+        Donate Now
+      </button>
+    </footer>
+
+    <script>
+   async function connectMetaMask() {
+    if (window.ethereum) {
+        try {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            showModal("Connected: " + accounts[0]);
+        } catch (error) {
+            console.error("Connection error", error);
+        }
+    } else {
+        alert("MetaMask is not installed. Please install MetaMask to use this feature.");
+    }
+}
+
+function showModal(message) {
+    const modal = document.getElementById("modal");
+    const modalMessage = document.getElementById("modal-message");
+    modalMessage.textContent = message;
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "none";
+}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Tracking</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.3.0"></script> <!-- Confetti Library -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.781),
+          rgba(200, 200, 200, 0.8)
+        );
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
+        }
+        .progress-container {
+            width: 100%;
+            background: #ddd;
+            border-radius: 20px;
+            margin-top: 20px;
+            height: 20px;
+        }
+        .progress-bar {
+            width: 10%;
+            height: 100%;
+            background: linear-gradient(45deg, #f71af3c3, #ff4500);
+            border-radius: 20px;
+            transition: width 1s ease-in-out;
+        }
+        .status {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .transaction-id {
+            font-weight: bold;
+            margin-top: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Transaction Progress</h2>
+        <p class="transaction-id">Transaction ID: <span id="txnId"></span></p>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <p class="status" id="statusText">Pending...</p>
+    </div>
+
+    <script>
+        // Generate a fake transaction ID
+        document.getElementById("txnId").innerText = "0x" + Math.random().toString(36).substr(2, 10).toUpperCase();
+
+        // Transaction progress simulation
+        let progress = 10;
+        let statusText = document.getElementById("statusText");
+        let progressBar = document.getElementById("progressBar");
+
+        function updateProgress() {
+            if (progress < 100) {
+                progress += 30;
+                progressBar.style.width = progress + "%";
+
+                if (progress < 50) {
+                    statusText.innerText = "Processing...";
+                } else if (progress < 90) {
+                    statusText.innerText = "Finalizing...";
+                } else {
+                    statusText.innerText = "Completed!";
+                    
+                    // 🎉 Confetti Animation on Completion 🎉
+                    setTimeout(() => {
+                        confetti({
+                            particleCount: 150,
+                            spread: 100,
+                            origin: { y: 0.6 }
+                        });
+                    }, 500);
+                    
+                    // ⏳ Redirect to Transaction History after 3 seconds
+                    setTimeout(() => {
+                        window.location.href = "history.html";
+                    }, 3000);
+                }
+            }
+        }
+
+        // Simulate transaction progress every 3 seconds
+        let interval = setInterval(() => {
+            updateProgress();
+            if (progress >= 100) {
+                clearInterval(interval);
+            }
+        }, 3000);
+    </script>
+
+</body>
+</html>

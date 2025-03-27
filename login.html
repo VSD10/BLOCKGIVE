@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EthDonation - Login</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/4.1.2/web3.min.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script> 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: linear-gradient(
+          to right,
+          rgba(255, 255, 255, 0.781),
+          rgba(200, 200, 200, 0.8)
+        );
+            color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .login-btn {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .login-btn:hover {
+            background-color: #333;
+        }
+        .wallet-connect {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .wallet-btn {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
+        .wallet-btn:hover {
+            background-color: #ddd;
+        }
+        .forgot-password {
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .forgot-password a {
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Login to BLOCKGIVE</h2>
+        <form>
+            <div class="input-group">
+                <label for="email">Email address</label>
+                <input type="email" id="email" placeholder="Your email">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="Enter your password">
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        
+        <p class="forgot-password">
+            <a href="#">Forgot your password?</a>
+        </p>
+
+        <div class="wallet-connect">
+            <button class="wallet-btn" onclick="connectMetaMask()">Connect MetaMask</button>
+            <button class="wallet-btn" onclick="connectWalletConnect()">Connect WalletConnect</button>
+        </div>
+    </div>
+
+    <script>
+        async function connectMetaMask() {
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    alert("Connected to MetaMask: " + accounts[0]);
+                    console.log("MetaMask Account:", accounts[0]);
+                } catch (error) {
+                    console.error("User denied MetaMask connection", error);
+                }
+            } else {
+                alert("MetaMask not detected. Please install it.");
+            }
+        }
+
+        async function connectWalletConnect() {
+            const provider = new WalletConnectProvider.default({
+                rpc: {
+                    1: "https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID" 
+                }
+            });
+
+            try {
+                await provider.enable();
+                const web3 = new Web3(provider);
+                const accounts = await web3.eth.getAccounts();
+                alert("Connected via WalletConnect: " + accounts[0]);
+                console.log("WalletConnect Account:", accounts[0]);
+            } catch (error) {
+                console.error("WalletConnect Error:", error);
+            }
+        }
+    </script>
+
+</body>
+</html>

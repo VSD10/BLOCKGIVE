@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donate Crypto - BlockDonation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Fredoka:wght@300..700&family=Manrope:wght@200..800&family=Quicksand:wght@300..700&family=Tektur:wght@400..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+        body {
+            font-family: "Cormorant Garamond", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+          "Open Sans", "Helvetica Neue", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 500;
+        font-style: normal; margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            text-align: center;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+        .connect-wallet {
+        background: linear-gradient(
+          45deg,
+          #bc0093cf,
+          #ff4b2b,
+          #0800ffb6,
+          #ffcc00
+        );
+        background-size: 300% 300%;
+        animation: gradientBG 6s ease infinite;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+      .connect-wallet:hover {
+        transform: scale(1.05);
+      }
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 28px;
+        }
+        select, input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: #f0f0f0;
+            font-size: 16px;
+        }
+        .transaction-details {
+            font-weight: bold;
+            margin-top: 20px;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .submit-btn {
+            background: black;
+            color: white;
+            padding: 15px;
+            border: none;
+            width: 100%;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .submit-btn:hover {
+            background: #333;
+        }
+        .footer-note {
+            font-size: 12px;
+            color: gray;
+            margin-top: 10px;
+        }
+        /* Modal styles */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; 
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+    max-width: 500px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">BlockDonation</div>
+    <nav>
+        <a href="#">Explore</a>
+        <a href="#">How it works</a>
+        <a href="#">Learn</a>
+        <button class="connect-wallet" onclick="connectMetaMask()">Connect Wallet</button>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="closeModal()">&times;</span>
+                <p id="modal-message"></p>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
+    <h1>Donate Crypto</h1>
+
+    <label>Select Cryptocurrency</label>
+    <select>
+        <option>Bitcoin</option>
+        <option>Ethereum</option>
+        <option>USDT</option>
+    </select>
+
+    <input type="number" id="amountInput" placeholder="Amount in USD" oninput="updateTotal()">
+    <label for="charity">Select Charity</label>
+    <select id="charity" onchange="toggleCustomCharity()">
+        <option value="charity1">Charity A</option>
+        <option value="charity2">Charity B</option>
+        <option value="charity3">Charity C</option>
+        <option value="custom">Other (Enter Name)</option>
+    </select>
+    <input type="text" id="customCharity" placeholder="Enter charity name" style="display: none;">
+    
+    <div class="transaction-details">
+        <p>Estimated Gas Fees <span style="float:right;">$0.50</span></p>
+        <p>Total Amount <span id="totalAmount" style="float:right;">$0.50</span></p>
+    </div>
+
+    <button onclick="window.location.href='track.html'" class="submit-btn">Submit Transaction</button>
+
+
+    <p class="footer-note">
+        Transaction confirmations are shown in real-time. A receipt will be provided upon successful completion.
+    </p>
+</div>
+
+<script>
+    function updateTotal() {
+        let amount = parseFloat(document.getElementById("amountInput").value) || 0;
+        let gasFee = 0.50;
+        let total = amount + gasFee;
+        document.getElementById("totalAmount").innerText = `$${total.toFixed(2)}`;
+    }
+
+    async function connectMetaMask() {
+    if (window.ethereum) {
+        try {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            showModal("Connected: " + accounts[0]);
+        } catch (error) {
+            console.error("Connection error", error);
+        }
+    } else {
+        alert("MetaMask is not installed. Please install MetaMask to use this feature.");
+    }
+}
+
+function showModal(message) {
+    const modal = document.getElementById("modal");
+    const modalMessage = document.getElementById("modal-message");
+    modalMessage.textContent = message;
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    const modal = document.getElementById("modal");
+    modal.style.display = "none";
+}
+    function toggleCustomCharity() {
+        var charitySelect = document.getElementById("charity");
+        var customCharityInput = document.getElementById("customCharity");
+
+        if (charitySelect.value === "custom") {
+            customCharityInput.style.display = "block";
+        } else {
+            customCharityInput.style.display = "none";
+        }
+    }
+
+</script>
+
+</body>
+</html>
